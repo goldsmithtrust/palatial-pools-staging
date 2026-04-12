@@ -1,0 +1,54 @@
+{
+  "model_name": "Kieran's Brain Writing Style Model v1.0",
+  "owner": "Kieran Goldsmith",
+  "business": "Palatial Pool Services",
+  "style_profile": {
+    "tone": "Warm, professional, reassuring, empathetic",
+    "vocabulary_preferences": [
+      "flat out",
+      "a bit of a mission",
+      "thanks a tonne",
+      "rest assured",
+      "happy to help",
+      "mission",
+      "unparalleled capability"
+    ],
+    "openings": [
+      "Hi {name}!",
+      "Hi {name},",
+      "Hi both,"
+    ],
+    "closings": [
+      "Kind regards, Kieran Goldsmith - Director, Palatial Pool Services",
+      "Kind regards, Kieran",
+      "Thanks a tonne",
+      "Let me know what you think"
+    ],
+    "common_phrases": [
+      "Rest assured we have not forgotten about you.",
+      "Hope you are keeping well.",
+      "Sorry for the delayed response.",
+      "I have been flat out working on...",
+      "I will get this sorted for you as soon as I can."
+    ]
+  },
+  "prediction_logic": {
+    "customer_enquiry": {
+      "strategy": "Reassuring, technical but simple, empathetic",
+      "template": "Hi {name}!\n\n{empathy_statement}\n\n{technical_explanation}\n\n{reassurance_statement}\n\n{closing}"
+    },
+    "urgent_issue": {
+      "strategy": "Direct, helpful, encourages phone call",
+      "template": "Hi {name}!\n\n{quick_fix_suggestion}\n\nFor anything urgent, please give me a call directly on 0452 157 694.\n\n{closing}"
+    },
+    "delay_apology": {
+      "strategy": "Honest business reason, reassuring",
+      "template": "Hi {name},\n\nApologies for the delayed response - I have been flat out with {business_reason}.\n\n{update_content}\n\n{closing}"
+    }
+  },
+  "contextual_rules": {
+    "diane_berold": "Always ask about her health/foot, use very warm tone.",
+    "ankita_ragesh": "Collaborative, operational focus, can be more direct.",
+    "new_leads": "Focus on 'unparalleled capability' and 'boutique service'."
+  }
+}

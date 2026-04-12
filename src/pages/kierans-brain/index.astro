@@ -1,0 +1,127 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import model from './model.json';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Kieran's Brain | ${SITE_TITLE}`} description="Writing style prediction engine and communication model." />
+		<style>
+			main {
+				width: 960px;
+			}
+			.brain-container {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 2rem;
+				margin-top: 2rem;
+			}
+			.card {
+				padding: 1.5rem;
+				border: 1px solid #ddd;
+				border-radius: 8px;
+				background: #f9f9f9;
+			}
+			.card h3 {
+				margin-top: 0;
+				color: #333;
+			}
+			.phrase-list {
+				list-style: none;
+				padding: 0;
+			}
+			.phrase-list li {
+				padding: 0.5rem 0;
+				border-bottom: 1px solid #eee;
+				font-style: italic;
+			}
+			.phrase-list li:last-child {
+				border-bottom: none;
+			}
+			.tag {
+				display: inline-block;
+				background: #e0e0e0;
+				padding: 0.2rem 0.5rem;
+				border-radius: 4px;
+				font-size: 0.8rem;
+				margin-right: 0.5rem;
+				margin-bottom: 0.5rem;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>🧠 Kieran's Brain</h1>
+			<p>
+				This is the central repository for Kieran's communication style and knowledge. 
+				The model below is built from analyzing thousands of sent emails to ensure every 
+				AI-drafted message sounds exactly like Kieran.
+			</p>
+
+			<div class="brain-container">
+				<div class="card">
+					<h3>✨ Style Profile</h3>
+					<p><strong>Tone:</strong> {model.style_profile.tone}</p>
+					<div>
+						<strong>Vocabulary:</strong><br/>
+						{model.style_profile.vocabulary_preferences.map(v => <span class="tag">{v}</span>)}
+					</div>
+				</div>
+
+				<div class="card">
+					<h3>💬 Common Phrases</h3>
+					<ul class="phrase-list">
+						{model.style_profile.common_phrases.map(p => <li>"{p}"</li>)}
+					</ul>
+				</div>
+
+				<div class="card">
+					<h3>👋 Openings</h3>
+					<ul class="phrase-list">
+						{model.style_profile.openings.map(o => <li>{o}</li>)}
+					</ul>
+				</div>
+
+				<div class="card">
+					<h3>🏁 Closings</h3>
+					<ul class="phrase-list">
+						{model.style_profile.closings.map(c => <li>{c}</li>)}
+					</ul>
+				</div>
+			</div>
+
+			<section style="margin-top: 3rem;">
+				<h2>🛠 Prediction Engine Logic</h2>
+				<p>The engine uses specific strategies based on the context of the email:</p>
+				<table style="width: 100%; border-collapse: collapse;">
+					<thead>
+						<tr style="background: #eee;">
+							<th style="padding: 1rem; border: 1px solid #ddd;">Scenario</th>
+							<th style="padding: 1rem; border: 1px solid #ddd;">Strategy</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="padding: 1rem; border: 1px solid #ddd;"><strong>Customer Enquiry</strong></td>
+							<td style="padding: 1rem; border: 1px solid #ddd;">{model.prediction_logic.customer_enquiry.strategy}</td>
+						</tr>
+						<tr>
+							<td style="padding: 1rem; border: 1px solid #ddd;"><strong>Urgent Issue</strong></td>
+							<td style="padding: 1rem; border: 1px solid #ddd;">{model.prediction_logic.urgent_issue.strategy}</td>
+						</tr>
+						<tr>
+							<td style="padding: 1rem; border: 1px solid #ddd;"><strong>Delay Apology</strong></td>
+							<td style="padding: 1rem; border: 1px solid #ddd;">{model.prediction_logic.delay_apology.strategy}</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
