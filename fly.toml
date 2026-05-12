@@ -1,4 +1,4 @@
-app = 'palatial-astro-blog'
+app = 'palatial-pools-staging'
 primary_region = 'syd'
 
 [build]

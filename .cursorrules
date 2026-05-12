@@ -1,0 +1,25 @@
+# Palatial Pools Staging — Cursor Agent Rules
+
+## Project context
+This is the Astro-based staging project for Palatial Pools. It was renamed from `square-boat-74da` to `palatial-pools-staging`. It has an existing webhook for auto-deploy to the staging server at `170.64.221.23`.
+
+## Tech stack
+| Layer | Stack |
+|---|---|
+| Framework | Astro 5, MDX, sitemap integration |
+| Runtime | Node standalone server output through `@astrojs/node` |
+| Deployment | Dockerfile, Fly config, Wrangler config, webhook-driven staging pipeline |
+| Assets | Static files under `public/` and Astro source under `src/` |
+
+## Critical rules
+- Keep staging deployment references consistent with the renamed repository.
+- Do not remove the webhook deployment assumption from documentation.
+- Do not commit secrets, SSH keys, server credentials, customer records, or private staging notes.
+- Update `package.json`, lockfiles, and deployment config together when changing project names or deployment targets.
+- Use `npm run build` before pushing meaningful code changes.
+
+## Working pattern
+Inspect `src/pages/`, `src/components/`, `astro.config.mjs`, `Dockerfile`, `wrangler.json`, and `fly.toml` before editing. Preserve staging isolation from the production public website unless the task explicitly asks to promote a change.
+
+## Verification
+Run `npm install` if dependencies are missing, then `npm run build`. For deployment config changes, also run `npm run check` where Wrangler credentials and environment allow it.

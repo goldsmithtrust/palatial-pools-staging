@@ -1,62 +1,71 @@
-# Astro Starter Kit: Blog
+# Palatial Pools Staging
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/astro-blog-starter-template)
+**Palatial Pools Staging** is the Astro-based staging web project for Palatial Pools. The repository was renamed from `square-boat-74da` to `palatial-pools-staging` and is configured for auto-deploy to the staging server at `170.64.221.23` through the existing repository webhook.
 
-![Astro Template Preview](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
+The webhook remains attached to the renamed GitHub repository. Local clones and deployment scripts that still reference the old repository URL should update their remote to `goldsmithtrust/palatial-pools-staging`.
 
-<!-- dash-content-start -->
+## Repository status
 
-Create a blog with Astro and deploy it on Cloudflare Workers as a [static website](https://developers.cloudflare.com/workers/static-assets/).
+| Area | Current implementation |
+|---|---|
+| Repository | `goldsmithtrust/palatial-pools-staging` |
+| Framework | Astro 5 with MDX and sitemap integration. |
+| Adapter | `@astrojs/node` standalone output. |
+| Deployment config | `Dockerfile`, `fly.toml`, `wrangler.json`, and an existing webhook-driven staging deployment. |
+| Public assets | Static assets under `public/` plus a saved Palatial Pools website archive. |
+| Source pages | Astro pages under `src/pages/` and shared components under `src/components/`. |
 
-Features:
+## Project structure
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+| Path | Purpose |
+|---|---|
+| `src/pages/` | Astro routes, including `index.astro`, `about.astro`, and `rss.xml.js`. |
+| `src/components/` | Shared layout and page components. |
+| `src/layouts/` | Blog post layout. |
+| `src/styles/global.css` | Global styling. |
+| `public/` | Static assets and placeholder blog images. |
+| `astro.config.mjs` | Astro configuration, integrations, output mode, and Node adapter. |
+| `Dockerfile` | Multi-stage production image for Node standalone server output. |
+| `wrangler.json` | Cloudflare Workers configuration retained for compatibility. |
+| `fly.toml` | Fly.io deployment configuration retained in the project. |
 
-<!-- dash-content-end -->
-
-## Getting Started
-
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
+## Local setup
 
 ```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/astro-blog-starter-template
+cd palatial-pools-staging
+npm install
+npm run dev
 ```
 
-A live public deployment of this template is available at [https://astro-blog-starter-template.templates.workers.dev](https://astro-blog-starter-template.templates.workers.dev)
+Astro serves the development site at `http://localhost:4321` by default. Use `npm run build` before committing substantive changes.
 
-## 🚀 Project Structure
+## Build and deployment
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Start local Astro dev server. |
+| `npm run build` | Build the production output. |
+| `npm run preview` | Build and run a local preview. |
+| `npm run check` | Run Astro build, TypeScript check, and Wrangler dry run. |
+| `npm run deploy` | Build and deploy through Wrangler if Cloudflare deployment is active. |
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+The included Dockerfile builds the Astro server output and runs `./dist/server/entry.mjs` on port `3000`.
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+```bash
+docker build -t palatial-pools-staging .
+docker run -p 3000:3000 palatial-pools-staging
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Staging webhook and renamed repository
 
-## 🧞 Commands
+The repository was formerly `square-boat-74da`. The webhook configured for auto-deploy to `170.64.221.23` remains attached after the GitHub rename, but any local clone should update its remote URL.
 
-All commands are run from the root of the project, from a terminal:
+```bash
+git remote set-url origin git@github.com:goldsmithtrust/palatial-pools-staging.git
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-| `npm run deploy`          | Deploy your production site to Cloudflare        |
+Review deployment scripts, dashboards, and server-side clone paths for old repository references before relying on automated deploys.
 
-## 👀 Want to learn more?
+## Cursor agent guidance
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+Start by reading `.cursorrules`, `README.md`, `package.json`, `astro.config.mjs`, `Dockerfile`, `wrangler.json`, and `fly.toml`. Keep changes staging-safe: this repository may be used to test website concepts before they move to the production public website. Do not commit secrets, server credentials, or private customer data.
